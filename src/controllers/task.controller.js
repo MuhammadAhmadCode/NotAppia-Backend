@@ -13,9 +13,23 @@ async function CreateTask(req, res) {
 }
 
 
-async function getTasks(req,res){
+async function getTasks(req, res) {
     const tasks = await taskModel.find()
-    res.status(200).json({message:"fetched",tasks:tasks})
+    res.status(200).json({ message: "fetched", tasks: tasks })
 }
 
-module.exports = { CreateTask ,getTasks}
+
+async function deleteTask(req, res) {
+    try {
+        const id = req.params.id
+        const task = await taskModel.findOneAndDelete({ _id: id })
+        res.status(200).json({
+            message: "Task Deleted successfully!",
+            task: task
+        })
+    } catch (err) {
+        res.json({message:"error",err})
+    }
+}
+
+module.exports = { CreateTask, getTasks, deleteTask }
