@@ -32,4 +32,11 @@ async function deleteTask(req, res) {
     }
 }
 
-module.exports = { CreateTask, getTasks, deleteTask }
+async function updateTask(req,res){
+    const title = req.body.edit
+    const id = req.params.id
+    const task = await taskModel.findOneAndUpdate({_id:id},{title:title})
+    res.status(200).json({message:"updated successfully!",task:task})
+}
+
+module.exports = { CreateTask, getTasks, deleteTask,updateTask }
