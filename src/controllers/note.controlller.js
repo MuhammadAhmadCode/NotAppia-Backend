@@ -25,4 +25,11 @@ async function deleteNote(req,res){
 }
 
 
-module.exports = {createNote,getAllNotes,deleteNote}
+async function updateNote(req,res){
+    const {title,description} = req.body
+    const id = req.params.id
+    await noteModel.findOneAndUpdate({_id:id},{title:title,description:description})
+    res.status(200).json({message:"updated successfully!"})
+}
+
+module.exports = {createNote,getAllNotes,deleteNote,updateNote}
