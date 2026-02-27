@@ -36,7 +36,15 @@ async function updateTask(req,res){
     const title = req.body.edit
     const id = req.params.id
     const task = await taskModel.findOneAndUpdate({_id:id},{title:title})
-    res.status(200).json({message:"updated successfully!",task:task})
+    res.status(200).json({message:"updated successfully!",task:title})
 }
 
-module.exports = { CreateTask, getTasks, deleteTask,updateTask }
+
+async function handleCompleteTak(req,res){
+    const id = req.params.id
+    const completed = req.body.completed
+    await taskModel.findOneAndUpdate({_id:id},{completed:completed})
+    res.status(200).json({message:"updated successfully!"})
+}
+
+module.exports = { CreateTask, getTasks, deleteTask,updateTask,handleCompleteTak }
