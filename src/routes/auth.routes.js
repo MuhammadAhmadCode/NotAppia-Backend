@@ -5,6 +5,7 @@ const router = express.Router()
 
 // auth routes
 router.post("/user/register",authController.registerUser)
+router.post("/user/login",authController.loginUser)
 
 
 
