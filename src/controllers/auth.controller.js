@@ -62,6 +62,11 @@ async function loginUser(req,res){
 }
 
 
+function logOut(req,res){
+    res.clearCookie("token")
+    res.status(200).json({
+        message:"User Logged Out Successfully!"
+    })
+}
 
-
-module.exports = {registerUser,loginUser}
+module.exports = {registerUser,loginUser,logOut}
