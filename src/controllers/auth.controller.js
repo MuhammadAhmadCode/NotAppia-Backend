@@ -4,69 +4,82 @@ const jwt = require("jsonwebtoken")
 
 
 // Registration Logic Controller
-async function registerUser(req,res){
-    const {fullName,email,password} = req.body
+async function registerUser(req, res) {
+    const { fullName, email, password } = req.body
 
     // check if user already exists
-    const isUserAlreadyExists = await userModel.findOne({email})
+    const isUserAlreadyExists = await userModel.findOne({ email })
 
-    if(isUserAlreadyExists){
-        return res.status(400).json({message:"User Already Exists"})
+    if (isUserAlreadyExists) {
+        return res.status(400).json({ message: "User Already Exists" })
     }
-    const hashed = await bcrypt.hash(password,10)
+    const hashed = await bcrypt.hash(password, 10)
 
     const user = await userModel.create({
         fullName,
         email,
-        password:hashed
+        password: hashed
     })
 
-    const token = jwt.sign({_id:user._id},process.env.JWT_SECRET)
+    const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET)
 
-    res.cookie("token",token)
+    res.cookie("token", token, {
+        httpOnly: true,
+        sameSite: "lax",
+        secure: false
+      });
 
     res.status(201).json({
-        message:"User Registered Successfully!",
-        fullName:user.fullName,
-        email:user.email
+        message: "User Registered Successfully!",
+        fullName: user.fullName,
+        email: user.email
     })
-    console.log(hashed)
 }
 
 // Login Logic Controller
 
-async function loginUser(req,res){
-    const {email,password} = req.body
+async function loginUser(req, res) {
+    const { email, password } = req.body
 
-    const user = await userModel.findOne({email})
+    const user = await userModel.findOne({ email })
 
-    if(!user){
-        return res.status(400).json({message:"Invalid email or password"})
+    if (!user) {
+        return res.status(400).json({ message: "Invalid email or password" })
     }
 
-    const isPasswordValid = await bcrypt.compare(password,user.password)
+    const isPasswordValid = await bcrypt.compare(password, user.password)
 
-    if(!isPasswordValid){
-        return res.status(400).json({message:"Invalid email or password"})
+    if (!isPasswordValid) {
+        return res.status(400).json({ message: "Invalid email or password" })
     }
 
-    const token = jwt.sign({_id:user._id},process.env.JWT_SECRET)
+    const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET)
 
-    res.cookie("token",token)
+    res.cookie("token", token, {
+        httpOnly: true,
+        sameSite: "lax",
+        secure: false
+      });
 
     res.status(201).json({
-        message:"user logged in successfully!",
-        email:user.email,
-        fullName:user.fullName
+        message: "user logged in successfully!",
+        token,
+        id: user._id,
+        email: user.email,
+        fullName: user.fullName
     })
 }
 
 
-function logOut(req,res){
+function logOut(req, res) {
     res.clearCookie("token")
     res.status(200).json({
-        message:"User Logged Out Successfully!"
+        message: "User Logged Out Successfully!"
     })
 }
 
-module.exports = {registerUser,loginUser,logOut}
+function me(req, res) {
+    res.json(req.user)
+}
+
+module.exports = { registerUser, loginUser, logOut, me }

@@ -1,19 +1,23 @@
 const express = require("express");
 const cors = require("cors")
-const taskRoutes = require("./routes/task.routes")
 const noteRoutes = require("./routes/note.routes")
 const authRoutes = require("./routes/auth.routes")
+const cookieParser = require("cookie-parser")
 
 
 const app = express()
 app.use(express.json())
-app.use(cors())
+
+app.use(cors({
+    origin: "http://localhost:5173",
+    credentials: true
+  }));
+  
+app.use(cookieParser())
 
 //auth routes
 app.use("/api/auth",authRoutes)
 
-//tasks routes
-app.use("/api/tasks",taskRoutes)
 //notes routes
 app.use("/api/notes",noteRoutes)
 
