@@ -74,6 +74,7 @@ npm install
 PORT=3000
 MONGO_URI=your_mongodb_connection
 JWT_SECRET=your_secret_key
+Frontend_URI=your_react_app_uri
 ```
 
 4. Start the server
@@ -91,3 +92,5 @@ http://localhost:3000
 ## Project Purpose
 
 This project was built as a practice full-stack application to understand authentication, protected routes, and user-specific data handling.
+
+#### Made by M. Ahmad with 💝 and 🍵
