@@ -26,27 +26,16 @@ async function getAllNotes(req, res) {
 async function deleteNote(req, res) {
         const id = req.params.id
         const note = await noteModel.findOneAndDelete({ _id: id, user: res.user._id })
-        // if (note.note == null) {
-        //     res.status(401).json({ message: "Unauthorized" })
-        // } else {
-        //     res.status(200).json({ message: "Note Deleted Successfully!", note: note })
-        // }
-        
         res.status(200).json({ message: "Note Deleted Successfully!", note: note })
 }
 
 
 async function updateNote(req, res) {
-        const { title, description } = req.body
+        const { updatedtitle,updateddescription } = req.body
         const id = req.params.id
-        const note = await noteModel.findOneAndUpdate({ _id: id, user: res.user._id }, { title: title, description: description })
-
-        if (note.note == null) {
-            res.status(401).json({ message: "UnAuthorized" })
-        } else {
-            res.status(200).json({ message: "Note updated successfully!", note: note })
-        }
-
+        const note = await noteModel.findOneAndUpdate({ _id: id, user: res.user._id }, { title: updatedtitle, description: updateddescription })
+        
+        res.status(200).json({ message: "Note updated successfully!", note: note })
 }
 
 module.exports = { createNote, getAllNotes, deleteNote, updateNote }
