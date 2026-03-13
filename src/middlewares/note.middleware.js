@@ -9,7 +9,7 @@ async function notemiddleware(req,res,next){
         }
         
         const decoded = jwt.verify(token,process.env.JWT_SECRET)
-        res.user = decoded
+        req.user = decoded
         next()
     } catch (err) {
         console.log(err)
