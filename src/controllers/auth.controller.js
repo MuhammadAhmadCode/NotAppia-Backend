@@ -21,7 +21,9 @@ async function registerUser(req, res) {
       password: hashed,
     });
 
-    const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET);
+    const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET, {
+      expiresIn: "7d",
+    });
 
     res.cookie("token", token, {
       httpOnly: true,
@@ -61,7 +63,9 @@ async function loginUser(req, res) {
       return res.status(400).json({ message: "Invalid email or password" });
     }
 
-    const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET);
+    const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET, {
+      expiresIn: "7d",
+    });
 
     res.cookie("token", token, {
       httpOnly: true,
@@ -69,9 +73,8 @@ async function loginUser(req, res) {
       secure: false,
     });
 
-    res.status(201).json({
+    res.status(200).json({
       message: "user logged in successfully!",
-      token,
       id: user._id,
       email: user.email,
       fullName: user.fullName,

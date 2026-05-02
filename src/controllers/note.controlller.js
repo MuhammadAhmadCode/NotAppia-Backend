@@ -18,7 +18,7 @@ async function createNote(req, res) {
     });
   } catch (err) {
     res.status(500).json({
-      sussess: false,
+      success: false,
       message: "Failed to create Note",
       error: err.message,
     });
@@ -31,7 +31,7 @@ async function getAllNotes(req, res) {
     res.status(200).json({ message: "Notes Fetched", notes: notes });
   } catch (err) {
     res.status(500).json({
-      sussess: false,
+      success: false,
       message: "Failed to retrieve Notes",
       error: err.message,
     });
@@ -48,7 +48,7 @@ async function deleteNote(req, res) {
     res.status(200).json({ message: "Note Deleted Successfully!", note: note });
   } catch (err) {
     res.status(500).json({
-      sussess: false,
+      success: false,
       message: "Failed to delete Note",
       error: err.message,
     });
@@ -60,14 +60,14 @@ async function updateNote(req, res) {
     const { updatedtitle, updateddescription } = req.body;
     const id = req.params.id;
     const note = await noteModel.findOneAndUpdate(
-      { _id: id, user: res.user._id },
+      { _id: id, user: req.user._id },
       { title: updatedtitle, description: updateddescription },
     );
 
     res.status(200).json({ message: "Note updated successfully!", note: note });
   } catch (err) {
     res.status(500).json({
-      sussess: false,
+      success: false,
       message: "Failed to update Note",
       error: err.message,
     });
