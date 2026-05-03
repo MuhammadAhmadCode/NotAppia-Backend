@@ -36,6 +36,7 @@ async function registerUser(req, res) {
     res.status(201).json({
       message: "User Registered Successfully!",
       fullName: user.fullName,
+      token,
       email: user.email,
     });
   } catch (err) {
@@ -81,6 +82,7 @@ async function loginUser(req, res) {
       message: "user logged in successfully!",
       id: user._id,
       email: user.email,
+      token,
       fullName: user.fullName,
     });
   } catch (err) {
