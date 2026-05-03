@@ -7,7 +7,7 @@ async function createNote(req, res) {
     const note = await noteModel.create({
       title,
       description,
-      user: res.user._id,
+      user: req.user._id,
     });
 
     res.status(201).json({
@@ -27,7 +27,7 @@ async function createNote(req, res) {
 
 async function getAllNotes(req, res) {
   try {
-    const notes = await noteModel.find({ user: res.user._id });
+    const notes = await noteModel.find({ user: req.user._id });
     res.status(200).json({ message: "Notes Fetched", notes: notes });
   } catch (err) {
     res.status(500).json({
@@ -43,7 +43,7 @@ async function deleteNote(req, res) {
     const id = req.params.id;
     const note = await noteModel.findOneAndDelete({
       _id: id,
-      user: res.user._id,
+      user: req.user._id,
     });
     res.status(200).json({ message: "Note Deleted Successfully!", note: note });
   } catch (err) {
