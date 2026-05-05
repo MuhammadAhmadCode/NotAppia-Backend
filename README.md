@@ -1,96 +1,111 @@
-# NotAppia Backend
+<div align="center">
 
-Backend API for **NotAppia**, a simple notes application that supports user authentication and personal note management.
+# 📝 NotAppia
 
-This server handles user registration, login, authentication, and CRUD operations for notes. Each note is linked to a specific user so that users can only access their own data.
+### A secure, full-stack notes app where your data is yours alone.
 
-## Features
+[![Live Demo](https://img.shields.io/badge/🔗_Live_Demo-Visit_App-black?style=for-the-badge)](https://not-appia-frontend.vercel.app/)
+[![Backend](https://img.shields.io/badge/Backend-Leapcell-blue?style=for-the-badge)](https://github.com/MuhammadAhmadCode/NotAppia-Backend)
+[![Frontend](https://img.shields.io/badge/Frontend-Vercel-black?style=for-the-badge)](https://github.com/MuhammadAhmadCode/NotAppia-Frontend)
 
-* User registration
-* User login with secure authentication
-* JWT-based authentication
-* Cookie-based session handling
-* Create, read, update, and delete notes
-* User-specific data access
-* Protected API routes using middleware
+</div>
 
-## Tech Stack
+---
 
-* Node.js
-* Express.js
-* MongoDB
-* Mongoose
-* JWT (JSON Web Token)
-* bcrypt
-* cookie-parser
+## 🎬 Demo
 
-## API Routes
+<div align="center">
 
-### Auth Routes
+![alt text](image.png)
 
-POST `/api/auth/register`
-Register a new user.
+</div>
 
-POST `/api/auth/login`
-Authenticate a user and generate a token.
+---
 
-GET `/api/auth/me`
-Get the currently authenticated user.
+## ✨ Features
 
-POST `/api/auth/logout`
-Log out the user by clearing the authentication cookie.
+| Feature             | Description                                   |
+| ------------------- | --------------------------------------------- |
+| 🔐 Secure Auth      | JWT tokens stored in httpOnly cookies         |
+| 🔒 Password Safety  | bcrypt hashing — plain passwords never stored |
+| 🛡️ Protected Routes | Middleware blocks unauthenticated requests    |
+| 👤 User Isolation   | Users can only access their own notes         |
+| ✅ Input Validation | express-validator on all routes               |
+| 📝 Full CRUD        | Create, read, update, delete notes            |
 
-### Notes Routes
+---
 
-GET `/api/notes`
-Get all notes for the authenticated user.
+## 🛠️ Tech Stack
 
-POST `/api/notes`
-Create a new note.
+<div align="center">
 
-PATCH `/api/notes/:id`
-Update a note.
+![Node.js](https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white)
+![Express](https://img.shields.io/badge/Express.js-000000?style=for-the-badge&logo=express&logoColor=white)
+![MongoDB](https://img.shields.io/badge/MongoDB-47A248?style=for-the-badge&logo=mongodb&logoColor=white)
+![JWT](https://img.shields.io/badge/JWT-000000?style=for-the-badge&logo=jsonwebtokens&logoColor=white)
+![React](https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=react&logoColor=black)
+![Tailwind](https://img.shields.io/badge/Tailwind-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white)
 
-DELETE `/api/notes/:id`
-Delete a note.
+</div>
 
-## Installation
+---
 
-1. Clone the repository
+## 🔌 API Routes
 
-```
-git clone https://github.com/yourusername/notappia-backend.git
-```
+### 🔑 Auth Routes
 
-2. Install dependencies
+| Method | Route                | Description             |
+| ------ | -------------------- | ----------------------- |
+| `POST` | `/api/auth/register` | Register a new user     |
+| `POST` | `/api/auth/login`    | Login and receive token |
+| `GET`  | `/api/auth/me`       | Get current user        |
+| `POST` | `/api/auth/logout`   | Clear auth cookie       |
 
-```
+### 📝 Notes Routes
+
+| Method   | Route            | Description            |
+| -------- | ---------------- | ---------------------- |
+| `GET`    | `/api/notes`     | Get all notes for user |
+| `POST`   | `/api/notes`     | Create a new note      |
+| `PATCH`  | `/api/notes/:id` | Update a note          |
+| `DELETE` | `/api/notes/:id` | Delete a note          |
+
+---
+
+## 🚀 Local Setup
+
+```bash
+# 1. Clone the repo
+git clone https://github.com/MuhammadAhmadCode/NotAppia-Backend.git
+
+# 2. Install dependencies
 npm install
-```
 
-3. Create a `.env` file and add:
-
-```
+# 3. Create .env file
 PORT=3000
 MONGO_URI=your_mongodb_connection
 JWT_SECRET=your_secret_key
 Frontend_URI=your_react_app_uri
-```
 
-4. Start the server
-
-```
+# 4. Start the server
 npm run dev
 ```
 
-The server will run on:
+---
 
-```
-http://localhost:3000
-```
+## 💡 What I Learned
 
-## Project Purpose
+- 🔐 How JWT auth works under the hood and why httpOnly
+  cookies beat localStorage for token storage
+- 🛡️ Why backend validation is non-negotiable — anyone
+  can bypass a React form with Postman
+- 🏗️ How to structure Express middleware for clean,
+  reusable, and scalable code
 
-This project was built as a practice full-stack application to understand authentication, protected routes, and user-specific data handling.
+---
 
-#### Made by M. Ahmad with 💝 and 🍵
+<div align="center">
+
+_Made by M. Ahmad with 💝 and 🍵_
+
+</div>
