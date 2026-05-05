@@ -10,5 +10,6 @@ function handleValidation(req, res, next) {
         .map((err) => ({ field: err.path, message: err.msg })),
     });
   }
+  next();
 }
 module.exports = handleValidation;
